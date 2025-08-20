@@ -1,0 +1,514 @@
+---
+title: Customization
+description: Personalize your AdzyJS portfolio with custom themes, animations, and interactions
+---
+
+# Customization 🎨
+
+Make your portfolio unique with custom themes, animations, and interactive features.
+
+## Custom Color Themes
+
+### Dark Mode Theme
+
+```css
+.portfolio.dark-theme {
+  --bg-primary: #0f0f0f;
+  --bg-secondary: #1a1a1a;
+  --text-primary: #ffffff;
+  --text-secondary: #a0a0a0;
+  --accent: #00d4ff;
+  --card-bg: #2d2d2d;
+}
+
+.dark-theme .hero {
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+}
+
+.dark-theme .skills {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+.dark-theme .skill-item {
+  background: var(--card-bg);
+  color: var(--text-primary);
+}
+```
+
+### Professional Blue Theme
+
+```css
+.portfolio.professional-theme {
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8f9fa;
+  --text-primary: #212529;
+  --accent: #007bff;
+  --accent-light: #6c7ae0;
+}
+
+.professional-theme .hero {
+  background: linear-gradient(135deg, #007bff 0%, #6c7ae0 100%);
+}
+
+.professional-theme .cta-button {
+  background: var(--accent);
+}
+```
+
+### Gaming Theme
+
+```css
+.portfolio.gaming-theme {
+  --bg-primary: #2d1b69;
+  --bg-secondary: #8b4513;
+  --text-primary: #ffffff;
+  --accent: #32cd32;
+  --minecraft-brown: #654321;
+}
+
+.gaming-theme .hero {
+  background: linear-gradient(135deg, #2d1b69 0%, #8b4513 100%);
+}
+
+.gaming-theme .skills {
+  background: var(--minecraft-brown);
+}
+
+.gaming-theme .contact {
+  background: var(--bg-primary);
+}
+```
+
+## Dynamic Theme Switching
+
+```jsx
+import { useState } from 'react';
+
+function App() {
+  const [theme, setTheme] = useState('default');
+
+  const themes = [
+    { name: 'Default', value: 'default' },
+    { name: 'Dark', value: 'dark-theme' },
+    { name: 'Professional', value: 'professional-theme' },
+    { name: 'Gaming', value: 'gaming-theme' }
+  ];
+
+  return (
+    <div className={`portfolio ${theme}`}>
+      {/* Theme Selector */}
+      <div className="theme-selector">
+        {themes.map(t => (
+          <button
+            key={t.value}
+            onClick={() => setTheme(t.value)}
+            className={theme === t.value ? 'active' : ''}
+          >
+            {t.name}
+          </button>
+        ))}
+      </div>
+
+      {/* Your portfolio content */}
+    </div>
+  );
+}
+```
+
+## Custom Character Animations
+
+### Animation State Management
+
+```jsx
+import { useState, useEffect } from 'react';
+import { Player } from 'adzyjs';
+
+function AnimatedHero() {
+  const [animation, setAnimation] = useState('idle');
+  const [isHovered, setIsHovered] = useState(false);
+
+  const animations = ['idle', 'wave', 'jump', 'dance', 'thumbsup'];
+
+  useEffect(() => {
+    if (!isHovered) {
+      const interval = setInterval(() => {
+        setAnimation(animations[Math.floor(Math.random() * animations.length)]);
+      }, 4000);
+      return () => clearInterval(interval);
+    }
+  }, [isHovered]);
+
+  return (
+    <div 
+      className="hero-character"
+      onMouseEnter={() => {
+        setIsHovered(true);
+        setAnimation('wave');
+      }}
+      onMouseLeave={() => {
+        setIsHovered(false);
+        setAnimation('idle');
+      }}
+    >
+      <Player 
+        skinUrl="https://example.com/your-skin.png"
+        animation={animation}
+        width={250}
+        height={350}
+      />
+    </div>
+  );
+}
+```
+
+### Scroll-Based Animations
+
+```jsx
+import { useEffect, useState } from 'react';
+
+function ScrollAnimatedCharacter({ skinUrl, baseAnimation = 'idle' }) {
+  const [currentAnimation, setCurrentAnimation] = useState(baseAnimation);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY;
+      const windowHeight = window.innerHeight;
+
+      if (scrollPosition > windowHeight * 0.5) {
+        setCurrentAnimation('running');
+      } else if (scrollPosition > windowHeight * 0.2) {
+        setCurrentAnimation('walking');
+      } else {
+        setCurrentAnimation(baseAnimation);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [baseAnimation]);
+
+  return (
+    <Player 
+      skinUrl={skinUrl}
+      animation={currentAnimation}
+      width={200}
+      height={280}
+    />
+  );
+}
+```
+
+## Interactive Skill Showcase
+
+```jsx
+function InteractiveSkills() {
+  const [selectedSkill, setSelectedSkill] = useState(0);
+
+  const skills = [
+    {
+      name: "React",
+      level: 90,
+      description: "Building modern web applications",
+      character: "https://example.com/react-dev.png",
+      animation: "coding"
+    },
+    {
+      name: "JavaScript",
+      level: 95,
+      description: "Dynamic and interactive experiences",
+      character: "https://example.com/js-dev.png",
+      animation: "thinking"
+    },
+    {
+      name: "Node.js",
+      level: 85,
+      description: "Server-side development",
+      character: "https://example.com/node-dev.png",
+      animation: "building"
+    }
+  ];
+
+  return (
+    <div className="interactive-skills">
+      <div className="skill-showcase">
+        <div className="skill-character">
+          <Player 
+            skinUrl={skills[selectedSkill].character}
+            animation={skills[selectedSkill].animation}
+            width={300}
+            height={400}
+          />
+        </div>
+        
+        <div className="skill-details">
+          <h2>{skills[selectedSkill].name}</h2>
+          <p>{skills[selectedSkill].description}</p>
+          
+          <div className="skill-meter">
+            <div className="meter-bg">
+              <div 
+                className="meter-fill"
+                style={{ width: `${skills[selectedSkill].level}%` }}
+              />
+            </div>
+            <span className="skill-percentage">{skills[selectedSkill].level}%</span>
+          </div>
+        </div>
+      </div>
+      
+      <div className="skill-tabs">
+        {skills.map((skill, index) => (
+          <button
+            key={index}
+            className={`skill-tab ${selectedSkill === index ? 'active' : ''}`}
+            onClick={() => setSelectedSkill(index)}
+          >
+            {skill.name}
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
+```
+
+## Custom Project Gallery
+
+```jsx
+function ProjectGallery() {
+  const projects = [
+    {
+      title: "E-commerce Platform",
+      description: "Full-stack online store with payment integration",
+      tech: ["React", "Node.js", "MongoDB"],
+      character: "https://example.com/ecommerce-dev.png",
+      github: "https://github.com/user/ecommerce",
+      demo: "https://demo.example.com"
+    },
+    {
+      title: "Mobile Weather App",
+      description: "Real-time weather with location services",
+      tech: ["React Native", "API Integration"],
+      character: "https://example.com/mobile-dev.png",
+      github: "https://github.com/user/weather-app",
+      demo: "https://weather.example.com"
+    }
+  ];
+
+  return (
+    <div className="project-gallery">
+      <h2>Featured Projects</h2>
+      <div className="projects-grid">
+        {projects.map((project, index) => (
+          <div key={index} className="project-card">
+            <div className="project-character">
+              <Player 
+                skinUrl={project.character}
+                animation="building"
+                width={200}
+                height={280}
+              />
+            </div>
+            
+            <div className="project-info">
+              <h3>{project.title}</h3>
+              <p>{project.description}</p>
+              
+              <div className="tech-stack">
+                {project.tech.map(tech => (
+                  <span key={tech} className="tech-tag">{tech}</span>
+                ))}
+              </div>
+              
+              <div className="project-links">
+                <a href={project.github} target="_blank" rel="noopener noreferrer">
+                  GitHub
+                </a>
+                <a href={project.demo} target="_blank" rel="noopener noreferrer">
+                  Live Demo
+                </a>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+```
+
+## Interactive Contact Form
+
+```jsx
+import { useState } from 'react';
+
+function InteractiveContact() {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    message: ''
+  });
+  const [characterState, setCharacterState] = useState('idle');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+    
+    // Change character animation based on form interaction
+    if (value.length > 0 && characterState === 'idle') {
+      setCharacterState('typing');
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setCharacterState('sending');
+    
+    // Simulate form submission
+    await new Promise(resolve => setTimeout(resolve, 2000));
+    
+    setCharacterState('success');
+    setIsSubmitting(false);
+    
+    // Reset after success animation
+    setTimeout(() => {
+      setCharacterState('idle');
+      setFormData({ name: '', email: '', message: '' });
+    }, 3000);
+  };
+
+  const getCharacterAnimation = () => {
+    switch (characterState) {
+      case 'typing': return 'typing';
+      case 'sending': return 'running';
+      case 'success': return 'thumbsup';
+      default: return 'idle';
+    }
+  };
+
+  const getCharacterMessage = () => {
+    switch (characterState) {
+      case 'typing': return "I'm listening...";
+      case 'sending': return "Sending your message!";
+      case 'success': return "Message sent! I'll get back to you soon.";
+      default: return "Let's work together!";
+    }
+  };
+
+  return (
+    <div className="interactive-contact">
+      <div className="contact-character">
+        <Player 
+          skinUrl="https://example.com/contact-character.png"
+          animation={getCharacterAnimation()}
+          width={300}
+          height={400}
+        />
+        <div className="speech-bubble">
+          <p>{getCharacterMessage()}</p>
+        </div>
+      </div>
+      
+      <form onSubmit={handleSubmit} className="contact-form">
+        <h2>Get In Touch</h2>
+        
+        <input
+          type="text"
+          name="name"
+          placeholder="Your Name"
+          value={formData.name}
+          onChange={handleChange}
+          required
+        />
+        
+        <input
+          type="email"
+          name="email"
+          placeholder="Your Email"
+          value={formData.email}
+          onChange={handleChange}
+          required
+        />
+        
+        <textarea
+          name="message"
+          placeholder="Your Message"
+          value={formData.message}
+          onChange={handleChange}
+          rows={5}
+          required
+        />
+        
+        <button type="submit" disabled={isSubmitting}>
+          {isSubmitting ? "Sending..." : "Send Message"}
+        </button>
+      </form>
+    </div>
+  );
+}
+```
+
+## Performance Optimizations
+
+### Lazy Loading Characters
+
+```jsx
+import { lazy, Suspense } from 'react';
+
+const Player = lazy(() => import('adzyjs').then(module => ({ default: module.Player })));
+
+function OptimizedCharacter({ skinUrl, ...props }) {
+  return (
+    <Suspense fallback={<div className="character-placeholder">Loading...</div>}>
+      <Player skinUrl={skinUrl} {...props} />
+    </Suspense>
+  );
+}
+```
+
+### Intersection Observer for Animations
+
+```jsx
+import { useEffect, useRef, useState } from 'react';
+
+function ViewportAnimatedCharacter({ skinUrl, ...props }) {
+  const [isVisible, setIsVisible] = useState(false);
+  const characterRef = useRef();
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsVisible(entry.isIntersecting),
+      { threshold: 0.3 }
+    );
+
+    if (characterRef.current) {
+      observer.observe(characterRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div ref={characterRef}>
+      {isVisible && (
+        <Player 
+          skinUrl={skinUrl}
+          animation="idle"
+          {...props}
+        />
+      )}
+    </div>
+  );
+}
+```
+
+## Next Steps
+
+- [View example portfolios](/docs/five-min-portfolio/examples)
+- [Learn deployment options](/docs/five-min-portfolio/deployment)
+- [Advanced AdzyJS features](/docs/custom-portfolio-guide)
+
+Your customized portfolio is ready to make a lasting impression! 🌟

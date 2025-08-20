@@ -1,0 +1,484 @@
+---
+title: Deployment
+description: Deploy your AdzyJS portfolio to popular hosting platforms in minutes
+---
+
+# Deployment 🚀
+
+Get your portfolio online with these simple deployment guides for popular hosting platforms.
+
+## Netlify (Recommended)
+
+Netlify offers the fastest and easiest deployment for React applications.
+
+### Method 1: Drag & Drop
+
+1. **Build your project:**
+   ```bash
+   npm run build
+   ```
+
+2. **Visit [Netlify](https://netlify.com)** and drag the `build` folder to the deploy area
+
+3. **Your site is live!** Netlify will provide you with a unique URL
+
+### Method 2: Git Integration
+
+1. **Push to GitHub/GitLab:**
+   ```bash
+   git init
+   git add .
+   git commit -m "Initial commit"
+   git remote add origin https://github.com/yourusername/your-portfolio.git
+   git push -u origin main
+   ```
+
+2. **Connect to Netlify:**
+   - Go to [Netlify](https://netlify.com)
+   - Click "New site from Git"
+   - Choose your repository
+   - Build settings:
+     - Build command: `npm run build`
+     - Publish directory: `build`
+
+3. **Automatic deployments:** Every git push triggers a new deployment
+
+### Method 3: Netlify CLI
+
+```bash
+# Install Netlify CLI
+npm install -g netlify-cli
+
+# Build your project
+npm run build
+
+# Deploy to Netlify
+netlify deploy --prod --dir=build
+```
+
+### Custom Domain Setup
+
+1. **In Netlify Dashboard:**
+   - Go to Domain settings
+   - Click "Add custom domain"
+   - Enter your domain name
+
+2. **Update DNS records:**
+   - Point your domain to Netlify's servers
+   - Netlify provides specific instructions for your domain provider
+
+## Vercel
+
+Perfect for Next.js projects and React applications.
+
+### Deploy with Vercel CLI
+
+```bash
+# Install Vercel CLI
+npm install -g vercel
+
+# Deploy from your project directory
+vercel
+
+# Follow the prompts to configure your project
+```
+
+### Deploy via Git Integration
+
+1. **Push to GitHub**
+2. **Import to Vercel:**
+   - Visit [vercel.com](https://vercel.com)
+   - Click "New Project"
+   - Import from GitHub
+   - Configure build settings if needed
+
+### Environment Variables
+
+```bash
+# .env.local (for local development)
+REACT_APP_API_URL=https://api.yoursite.com
+REACT_APP_CDN_URL=https://cdn.yoursite.com
+
+# Add these in Vercel dashboard under Settings > Environment Variables
+```
+
+## GitHub Pages
+
+Free hosting directly from your GitHub repository.
+
+### Setup GitHub Pages
+
+1. **Install gh-pages package:**
+   ```bash
+   npm install --save-dev gh-pages
+   ```
+
+2. **Add to package.json:**
+   ```json
+   {
+     "homepage": "https://yourusername.github.io/your-portfolio",
+     "scripts": {
+       "predeploy": "npm run build",
+       "deploy": "gh-pages -d build"
+     }
+   }
+   ```
+
+3. **Deploy:**
+   ```bash
+   npm run deploy
+   ```
+
+4. **Enable GitHub Pages:**
+   - Go to repository settings
+   - Scroll to GitHub Pages
+   - Select `gh-pages` branch as source
+
+### Custom Domain with GitHub Pages
+
+1. **Add CNAME file to public folder:**
+   ```
+   // public/CNAME
+   yourdomain.com
+   ```
+
+2. **Configure DNS:**
+   - Add CNAME record pointing to `yourusername.github.io`
+   - Or A records pointing to GitHub's IPs
+
+## Firebase Hosting
+
+Google's hosting platform with excellent performance.
+
+### Setup Firebase
+
+1. **Install Firebase CLI:**
+   ```bash
+   npm install -g firebase-tools
+   ```
+
+2. **Login and initialize:**
+   ```bash
+   firebase login
+   firebase init hosting
+   ```
+
+3. **Configure firebase.json:**
+   ```json
+   {
+     "hosting": {
+       "public": "build",
+       "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+       "rewrites": [
+         {
+           "source": "**",
+           "destination": "/index.html"
+         }
+       ]
+     }
+   }
+   ```
+
+4. **Deploy:**
+   ```bash
+   npm run build
+   firebase deploy
+   ```
+
+## AWS S3 + CloudFront
+
+Enterprise-grade hosting with CDN distribution.
+
+### S3 Setup
+
+1. **Install AWS CLI:**
+   ```bash
+   npm install -g aws-cli
+   aws configure
+   ```
+
+2. **Create S3 bucket and sync:**
+   ```bash
+   aws s3 mb s3://your-portfolio-bucket
+   aws s3 sync build/ s3://your-portfolio-bucket --delete
+   ```
+
+3. **Enable static website hosting in S3 console**
+
+### CloudFront CDN
+
+1. **Create CloudFront distribution**
+2. **Point to S3 bucket**
+3. **Configure custom error pages for SPA routing**
+
+## Surge.sh
+
+Simple, fast deployment for static sites.
+
+### Deploy with Surge
+
+```bash
+# Install Surge globally
+npm install -g surge
+
+# Build your project
+npm run build
+
+# Deploy
+cd build
+surge
+# Follow the prompts to set up your domain
+```
+
+## Custom Server Deployment
+
+### Using PM2 (Node.js Process Manager)
+
+```bash
+# Install PM2 globally
+npm install -g pm2
+
+# Create ecosystem file
+```
+
+```javascript
+// ecosystem.config.js
+module.exports = {
+  apps: [{
+    name: 'portfolio',
+    script: 'npx',
+    args: 'serve -s build -p 3000',
+    instances: 1,
+    autorestart: true,
+    watch: false,
+    max_memory_restart: '1G',
+    env: {
+      NODE_ENV: 'production'
+    }
+  }]
+};
+```
+
+```bash
+# Start with PM2
+pm2 start ecosystem.config.js
+pm2 save
+pm2 startup
+```
+
+### Docker Deployment
+
+```dockerfile
+# Dockerfile
+FROM node:16-alpine
+
+WORKDIR /app
+
+# Copy package files
+COPY package*.json ./
+
+# Install dependencies
+RUN npm ci --only=production
+
+# Copy built app
+COPY build/ ./build/
+
+# Install serve
+RUN npm install -g serve
+
+EXPOSE 3000
+
+CMD ["serve", "-s", "build", "-p", "3000"]
+```
+
+```bash
+# Build and run
+docker build -t my-portfolio .
+docker run -p 3000:3000 my-portfolio
+```
+
+## Domain and SSL Setup
+
+### Custom Domain Configuration
+
+1. **Purchase domain from registrar (GoDaddy, Namecheap, etc.)**
+
+2. **Update DNS records:**
+   ```
+   Type: CNAME
+   Name: www
+   Value: your-netlify-site.netlify.app
+   
+   Type: A
+   Name: @
+   Value: [Platform's IP addresses]
+   ```
+
+### SSL Certificate
+
+Most modern hosting platforms provide free SSL certificates:
+
+- **Netlify:** Automatic SSL via Let's Encrypt
+- **Vercel:** Automatic SSL for all deployments
+- **Netlify/Vercel:** Auto-renewal handled for you
+
+## Performance Optimization
+
+### Build Optimizations
+
+```json
+// package.json - Add build optimizations
+{
+  "scripts": {
+    "build": "GENERATE_SOURCEMAP=false react-scripts build",
+    "build:analyze": "npm run build && npx bundle-analyzer build/static/js/*.js"
+  }
+}
+```
+
+### Compression Setup
+
+```javascript
+// For Express.js servers
+const compression = require('compression');
+app.use(compression());
+
+// For Nginx
+gzip on;
+gzip_comp_level 6;
+gzip_types text/plain text/css application/json application/javascript text/xml application/xml;
+```
+
+### CDN for Assets
+
+```javascript
+// Use CDN for Minecraft skins and assets
+const SKIN_CDN = 'https://cdn.yourdomain.com/skins/';
+const skinUrl = `${SKIN_CDN}${skinFileName}`;
+```
+
+## CI/CD Pipeline
+
+### GitHub Actions
+
+```yaml
+# .github/workflows/deploy.yml
+name: Deploy to Netlify
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '16'
+        
+    - name: Install dependencies
+      run: npm ci
+      
+    - name: Build
+      run: npm run build
+      
+    - name: Deploy to Netlify
+      uses: nwtgck/actions-netlify@v1.2
+      with:
+        publish-dir: './build'
+        production-branch: main
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        deploy-message: "Deploy from GitHub Actions"
+      env:
+        NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+        NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+```
+
+## Monitoring and Analytics
+
+### Google Analytics Setup
+
+```html
+<!-- Add to public/index.html -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'GA_MEASUREMENT_ID');
+</script>
+```
+
+### Performance Monitoring
+
+```javascript
+// Add to your React app
+import { getCLS, getFID, getFCP, getLCP, getTTFB } from 'web-vitals';
+
+function sendToAnalytics(metric) {
+  // Send to your analytics service
+  gtag('event', metric.name, {
+    value: Math.round(metric.name === 'CLS' ? metric.value * 1000 : metric.value),
+    event_label: metric.id,
+  });
+}
+
+getCLS(sendToAnalytics);
+getFID(sendToAnalytics);
+getFCP(sendToAnalytics);
+getLCP(sendToAnalytics);
+getTTFB(sendToAnalytics);
+```
+
+## Deployment Checklist
+
+Before going live:
+
+- [ ] ✅ Test on multiple devices and browsers
+- [ ] ✅ Optimize images and assets
+- [ ] ✅ Configure custom domain and SSL
+- [ ] ✅ Set up analytics tracking
+- [ ] ✅ Test all character animations
+- [ ] ✅ Verify contact form functionality
+- [ ] ✅ Check mobile responsiveness
+- [ ] ✅ Optimize loading performance
+- [ ] ✅ Set up error monitoring
+- [ ] ✅ Configure SEO meta tags
+
+## Troubleshooting
+
+### Common Issues
+
+**Characters not loading:**
+```javascript
+// Check if skin URLs are accessible
+const testSkinUrl = async (url) => {
+  try {
+    const response = await fetch(url, { method: 'HEAD' });
+    return response.ok;
+  } catch (error) {
+    console.error('Skin URL not accessible:', url);
+    return false;
+  }
+};
+```
+
+**Routing issues on deployed site:**
+```javascript
+// Add to public/_redirects (Netlify)
+/*    /index.html   200
+
+// Or configure server for SPA routing
+```
+
+**Performance issues:**
+- Enable gzip compression
+- Optimize character models
+- Use lazy loading for non-critical characters
+- Implement intersection observer for animations
+
+Your portfolio is now live and ready to showcase your skills to the world! 🌟

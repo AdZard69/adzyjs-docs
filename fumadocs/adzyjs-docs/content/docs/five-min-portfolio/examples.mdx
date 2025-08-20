@@ -1,0 +1,863 @@
+---
+title: Examples
+description: Browse inspiring AdzyJS portfolio examples and get code snippets for your own projects
+---
+
+# Portfolio Examples 🎨
+
+Get inspired by these complete portfolio examples built with AdzyJS. Each includes full code and live demos.
+
+## Example 1: Minimalist Developer Portfolio
+
+A clean, professional portfolio focusing on simplicity and performance.
+
+### Preview Features
+- Single-page layout
+- Smooth scroll animations
+- Interactive skill meters
+- Contact form with character feedback
+
+### Complete Code
+
+```jsx
+import { Player } from 'adzyjs';
+import { useState, useEffect } from 'react';
+import './MinimalistPortfolio.css';
+
+function MinimalistPortfolio() {
+  const [scrollY, setScrollY] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => setScrollY(window.scrollY);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  return (
+    <div className="minimalist-portfolio">
+      {/* Navigation */}
+      <nav className="nav">
+        <div className="nav-brand">Alex Chen</div>
+        <div className="nav-links">
+          <a href="#about">About</a>
+          <a href="#skills">Skills</a>
+          <a href="#projects">Projects</a>
+          <a href="#contact">Contact</a>
+        </div>
+      </nav>
+
+      {/* Hero Section */}
+      <section id="hero" className="hero">
+        <div className="hero-content">
+          <h1>Full Stack Developer</h1>
+          <p>I create seamless digital experiences with modern web technologies</p>
+          <button className="hero-cta">View My Work</button>
+        </div>
+        <div className="hero-character">
+          <Player 
+            skinUrl="https://example.com/professional-skin.png"
+            animation={scrollY > 50 ? "thinking" : "idle"}
+            width={280}
+            height={400}
+          />
+        </div>
+      </section>
+
+      {/* About Section */}
+      <section id="about" className="about">
+        <div className="container">
+          <div className="about-text">
+            <h2>About Me</h2>
+            <p>
+              With 5+ years of experience in web development, I specialize in 
+              creating responsive, user-friendly applications using React, Node.js, 
+              and modern web technologies.
+            </p>
+            <div className="stats">
+              <div className="stat">
+                <h3>50+</h3>
+                <p>Projects Completed</p>
+              </div>
+              <div className="stat">
+                <h3>3</h3>
+                <p>Years Experience</p>
+              </div>
+              <div className="stat">
+                <h3>20+</h3>
+                <p>Happy Clients</p>
+              </div>
+            </div>
+          </div>
+          <div className="about-character">
+            <Player 
+              skinUrl="https://example.com/coding-skin.png"
+              animation="coding"
+              width={250}
+              height={350}
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* Skills Section */}
+      <SkillsSection />
+
+      {/* Projects Section */}
+      <ProjectsSection />
+
+      {/* Contact Section */}
+      <ContactSection />
+    </div>
+  );
+}
+
+function SkillsSection() {
+  const skills = [
+    { name: "React", level: 95, color: "#61DAFB" },
+    { name: "JavaScript", level: 90, color: "#F7DF1E" },
+    { name: "Node.js", level: 85, color: "#339933" },
+    { name: "Python", level: 80, color: "#3776AB" }
+  ];
+
+  return (
+    <section id="skills" className="skills">
+      <div className="container">
+        <h2>Technical Skills</h2>
+        <div className="skills-grid">
+          {skills.map((skill, index) => (
+            <div key={index} className="skill-item">
+              <div className="skill-character">
+                <Player 
+                  skinUrl={`https://example.com/${skill.name.toLowerCase()}-dev.png`}
+                  animation="idle"
+                  width={120}
+                  height={180}
+                />
+              </div>
+              <h3>{skill.name}</h3>
+              <div className="skill-bar">
+                <div 
+                  className="skill-progress"
+                  style={{ 
+                    width: `${skill.level}%`,
+                    backgroundColor: skill.color 
+                  }}
+                />
+              </div>
+              <span className="skill-percentage">{skill.level}%</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export default MinimalistPortfolio;
+```
+
+### CSS Styles
+
+```css
+/* MinimalistPortfolio.css */
+.minimalist-portfolio {
+  font-family: 'Inter', sans-serif;
+  line-height: 1.6;
+  color: #333;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+/* Navigation */
+.nav {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  z-index: 1000;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-brand {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #2d3748;
+}
+
+.nav-links {
+  display: flex;
+  gap: 2rem;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #4a5568;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.nav-links a:hover {
+  color: #3182ce;
+}
+
+/* Hero Section */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 0 2rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.hero-content h1 {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+  font-weight: 700;
+}
+
+.hero-content p {
+  font-size: 1.3rem;
+  margin-bottom: 2rem;
+  opacity: 0.9;
+}
+
+.hero-cta {
+  background: #ff6b6b;
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.hero-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(255, 107, 107, 0.3);
+}
+
+/* About Section */
+.about {
+  padding: 5rem 0;
+  background: #f7fafc;
+}
+
+.about .container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+
+.about h2 {
+  font-size: 3rem;
+  margin-bottom: 2rem;
+  color: #2d3748;
+}
+
+.about p {
+  font-size: 1.2rem;
+  margin-bottom: 3rem;
+  color: #4a5568;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.stat {
+  text-align: center;
+}
+
+.stat h3 {
+  font-size: 2.5rem;
+  color: #3182ce;
+  margin-bottom: 0.5rem;
+}
+
+.stat p {
+  color: #718096;
+  font-size: 1rem;
+  margin: 0;
+}
+
+/* Skills Section */
+.skills {
+  padding: 5rem 0;
+  background: white;
+}
+
+.skills h2 {
+  text-align: center;
+  font-size: 3rem;
+  margin-bottom: 4rem;
+  color: #2d3748;
+}
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 3rem;
+}
+
+.skill-item {
+  text-align: center;
+  padding: 2rem;
+  border-radius: 15px;
+  background: #f7fafc;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.skill-item:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+.skill-item h3 {
+  margin: 1rem 0;
+  color: #2d3748;
+}
+
+.skill-bar {
+  width: 100%;
+  height: 8px;
+  background: #e2e8f0;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 0.5rem;
+}
+
+.skill-progress {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 1s ease-in-out;
+}
+
+.skill-percentage {
+  font-weight: 600;
+  color: #4a5568;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .hero {
+    flex-direction: column;
+    text-align: center;
+    padding: 6rem 1rem 2rem;
+  }
+  
+  .hero-content h1 {
+    font-size: 2.5rem;
+  }
+  
+  .about .container {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+  
+  .stats {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+  
+  .skills-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .nav-links {
+    display: none;
+  }
+}
+```
+
+## Example 2: Gaming-Themed Portfolio
+
+A vibrant portfolio with Minecraft-inspired design elements.
+
+### Key Features
+- Pixelated UI elements
+- Block-style animations
+- Character inventory system
+- Achievement showcase
+
+```jsx
+import { Player } from 'adzyjs';
+import { useState } from 'react';
+
+function GamingPortfolio() {
+  const [selectedCharacter, setSelectedCharacter] = useState(0);
+  const [achievementsUnlocked, setAchievementsUnlocked] = useState([]);
+
+  const characters = [
+    { name: "Main Character", skin: "https://example.com/main.png", animation: "idle" },
+    { name: "Builder", skin: "https://example.com/builder.png", animation: "building" },
+    { name: "Explorer", skin: "https://example.com/explorer.png", animation: "walking" }
+  ];
+
+  const achievements = [
+    { id: 1, name: "First Portfolio", description: "Created your first portfolio", icon: "🏆" },
+    { id: 2, name: "Responsive Master", description: "Made portfolio mobile-friendly", icon: "📱" },
+    { id: 3, name: "Animation Expert", description: "Added character animations", icon: "🎮" }
+  ];
+
+  const unlockAchievement = (achievementId) => {
+    if (!achievementsUnlocked.includes(achievementId)) {
+      setAchievementsUnlocked([...achievementsUnlocked, achievementId]);
+    }
+  };
+
+  return (
+    <div className="gaming-portfolio">
+      {/* Minecraft-style Header */}
+      <header className="minecraft-header">
+        <div className="health-bar">
+          <span className="hearts">❤️❤️❤️❤️❤️</span>
+        </div>
+        <div className="character-selector">
+          {characters.map((char, index) => (
+            <div 
+              key={index}
+              className={`character-slot ${selectedCharacter === index ? 'selected' : ''}`}
+              onClick={() => setSelectedCharacter(index)}
+            >
+              <Player 
+                skinUrl={char.skin}
+                animation="idle"
+                width={50}
+                height={70}
+              />
+            </div>
+          ))}
+        </div>
+      </header>
+
+      {/* Main Character Display */}
+      <section className="character-showcase">
+        <div className="character-display">
+          <Player 
+            skinUrl={characters[selectedCharacter].skin}
+            animation={characters[selectedCharacter].animation}
+            width={400}
+            height={600}
+          />
+        </div>
+        <div className="character-info">
+          <h1 className="pixel-text">{characters[selectedCharacter].name}</h1>
+          <div className="stats-panel">
+            <div className="stat">
+              <span className="stat-icon">⚔️</span>
+              <span>Coding Level: 85</span>
+            </div>
+            <div className="stat">
+              <span className="stat-icon">🛡️</span>
+              <span>Projects: 42</span>
+            </div>
+            <div className="stat">
+              <span className="stat-icon">💎</span>
+              <span>Experience: 5 years</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Inventory Grid */}
+      <section className="inventory-section">
+        <h2 className="pixel-text">My Tech Stack Inventory</h2>
+        <div className="inventory-grid">
+          {['React', 'JavaScript', 'Node.js', 'Python', 'MongoDB', 'AWS'].map((tech, index) => (
+            <div key={index} className="inventory-slot" onClick={() => unlockAchievement(1)}>
+              <div className="tech-item">
+                <img src={`https://example.com/icons/${tech.toLowerCase()}.png`} alt={tech} />
+                <span className="tech-name">{tech}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Achievements */}
+      <section className="achievements">
+        <h2 className="pixel-text">Achievements Unlocked</h2>
+        <div className="achievements-grid">
+          {achievements.map(achievement => (
+            <div 
+              key={achievement.id}
+              className={`achievement ${achievementsUnlocked.includes(achievement.id) ? 'unlocked' : 'locked'}`}
+            >
+              <span className="achievement-icon">{achievement.icon}</span>
+              <div className="achievement-info">
+                <h3>{achievement.name}</h3>
+                <p>{achievement.description}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+    </div>
+  );
+}
+```
+
+## Example 3: Creative Agency Portfolio
+
+A bold, creative portfolio with multiple team members and interactive elements.
+
+### Features
+- Team member showcase
+- Project case studies
+- Interactive timeline
+- Dynamic testimonials
+
+```jsx
+import { Player } from 'adzyjs';
+import { useState, useEffect } from 'react';
+
+function CreativeAgencyPortfolio() {
+  const [activeTeamMember, setActiveTeamMember] = useState(0);
+  const [currentTestimonial, setCurrentTestimonial] = useState(0);
+
+  const teamMembers = [
+    {
+      name: "Sarah Johnson",
+      role: "Creative Director",
+      skin: "https://example.com/sarah.png",
+      skills: ["UI/UX Design", "Brand Strategy", "Creative Direction"],
+      bio: "Leading creative vision with 8+ years of experience"
+    },
+    {
+      name: "Mike Chen",
+      role: "Lead Developer",
+      skin: "https://example.com/mike.png",
+      skills: ["React", "Node.js", "Cloud Architecture"],
+      bio: "Full-stack expert building scalable solutions"
+    },
+    {
+      name: "Emma Davis",
+      role: "3D Artist",
+      skin: "https://example.com/emma.png",
+      skills: ["3D Modeling", "Animation", "VR/AR"],
+      bio: "Creating immersive digital experiences"
+    }
+  ];
+
+  const testimonials = [
+    {
+      quote: "The team delivered an incredible interactive portfolio that exceeded our expectations.",
+      author: "John Smith, CEO TechCorp",
+      project: "Corporate Website Redesign"
+    },
+    {
+      quote: "Their creative use of 3D characters made our brand come alive online.",
+      author: "Lisa Wong, Marketing Director",
+      project: "E-commerce Platform"
+    }
+  ];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <div className="creative-portfolio">
+      {/* Hero with Dynamic Background */}
+      <section className="creative-hero">
+        <div className="hero-background">
+          <div className="floating-characters">
+            {teamMembers.map((member, index) => (
+              <div key={index} className="floating-character" style={{
+                animationDelay: `${index * 0.5}s`
+              }}>
+                <Player 
+                  skinUrl={member.skin}
+                  animation="floating"
+                  width={100}
+                  height={150}
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+        
+        <div className="hero-content">
+          <h1 className="creative-title">We Create Digital Magic</h1>
+          <p className="hero-subtitle">Interactive experiences that captivate and convert</p>
+          <button className="magic-button">Start Your Journey</button>
+        </div>
+      </section>
+
+      {/* Team Showcase */}
+      <section className="team-showcase">
+        <h2>Meet Our Creative Team</h2>
+        
+        <div className="team-display">
+          <div className="team-character">
+            <Player 
+              skinUrl={teamMembers[activeTeamMember].skin}
+              animation="presentation"
+              width={350}
+              height={500}
+            />
+          </div>
+          
+          <div className="team-info">
+            <h3>{teamMembers[activeTeamMember].name}</h3>
+            <h4>{teamMembers[activeTeamMember].role}</h4>
+            <p>{teamMembers[activeTeamMember].bio}</p>
+            
+            <div className="skills-tags">
+              {teamMembers[activeTeamMember].skills.map((skill, index) => (
+                <span key={index} className="skill-tag">{skill}</span>
+              ))}
+            </div>
+          </div>
+        </div>
+        
+        <div className="team-selector">
+          {teamMembers.map((member, index) => (
+            <button
+              key={index}
+              className={`team-btn ${activeTeamMember === index ? 'active' : ''}`}
+              onClick={() => setActiveTeamMember(index)}
+            >
+              <Player 
+                skinUrl={member.skin}
+                animation="idle"
+                width={80}
+                height={120}
+              />
+              <span>{member.name}</span>
+            </button>
+          ))}
+        </div>
+      </section>
+
+      {/* Interactive Project Timeline */}
+      <ProjectTimeline />
+
+      {/* Testimonials Carousel */}
+      <section className="testimonials">
+        <h2>What Our Clients Say</h2>
+        <div className="testimonial-card">
+          <div className="testimonial-character">
+            <Player 
+              skinUrl="https://example.com/client-avatar.png"
+              animation="applauding"
+              width={200}
+              height={280}
+            />
+          </div>
+          
+          <div className="testimonial-content">
+            <blockquote>"{testimonials[currentTestimonial].quote}"</blockquote>
+            <cite>
+              <strong>{testimonials[currentTestimonial].author}</strong>
+              <span>{testimonials[currentTestimonial].project}</span>
+            </cite>
+          </div>
+        </div>
+        
+        <div className="testimonial-dots">
+          {testimonials.map((_, index) => (
+            <button
+              key={index}
+              className={`dot ${currentTestimonial === index ? 'active' : ''}`}
+              onClick={() => setCurrentTestimonial(index)}
+            />
+          ))}
+        </div>
+      </section>
+    </div>
+  );
+}
+
+function ProjectTimeline() {
+  const projects = [
+    {
+      year: "2024",
+      title: "VR Shopping Experience",
+      client: "RetailCorp",
+      character: "https://example.com/vr-developer.png",
+      description: "Immersive virtual shopping with 3D product visualization"
+    },
+    {
+      year: "2023",
+      title: "Interactive Learning Platform",
+      client: "EduTech",
+      character: "https://example.com/teacher.png",
+      description: "Gamified learning experience with character progression"
+    }
+  ];
+
+  const [activeProject, setActiveProject] = useState(0);
+
+  return (
+    <section className="project-timeline">
+      <h2>Our Project Journey</h2>
+      
+      <div className="timeline">
+        <div className="timeline-line"></div>
+        {projects.map((project, index) => (
+          <div 
+            key={index}
+            className={`timeline-item ${activeProject === index ? 'active' : ''}`}
+            onClick={() => setActiveProject(index)}
+          >
+            <div className="timeline-marker"></div>
+            <div className="timeline-content">
+              <div className="project-year">{project.year}</div>
+              <h3>{project.title}</h3>
+              <p className="project-client">{project.client}</p>
+              
+              {activeProject === index && (
+                <div className="project-details">
+                  <div className="project-character">
+                    <Player 
+                      skinUrl={project.character}
+                      animation="building"
+                      width={150}
+                      height={220}
+                    />
+                  </div>
+                  <p>{project.description}</p>
+                </div>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+```
+
+## Live Demo Links
+
+- **Minimalist Portfolio**: [https://minimalist-adzyjs.netlify.app](https://minimalist-adzyjs.netlify.app)
+- **Gaming Portfolio**: [https://gaming-adzyjs.netlify.app](https://gaming-adzyjs.netlify.app)
+- **Creative Agency**: [https://creative-adzyjs.netlify.app](https://creative-adzyjs.netlify.app)
+
+## CodePen Examples
+
+<iframe height="400" style="width: 100%;" scrolling="no" title="AdzyJS Portfolio Hero Section" src="https://codepen.io/example/embed/xyz123?default-tab=result" frameborder="no" loading="lazy"></iframe>
+
+## GitHub Templates
+
+Clone these complete portfolio templates:
+
+```bash
+# Minimalist Template
+git clone https://github.com/adzyjs/minimalist-portfolio-template.git
+
+# Gaming Template
+git clone https://github.com/adzyjs/gaming-portfolio-template.git
+
+# Creative Agency Template
+git clone https://github.com/adzyjs/creative-agency-template.git
+```
+
+## Customization Tips
+
+### Quick Theme Changes
+
+```css
+/* Change primary colors across all examples */
+:root {
+  --primary-color: #your-color;
+  --secondary-color: #your-secondary-color;
+  --accent-color: #your-accent-color;
+}
+```
+
+### Character Skin Replacements
+
+```javascript
+// Replace character skins with your own
+const SKIN_BASE_URL = 'https://your-cdn.com/skins/';
+
+const characterSkins = {
+  main: `${SKIN_BASE_URL}your-main-character.png`,
+  developer: `${SKIN_BASE_URL}your-dev-character.png`,
+  creative: `${SKIN_BASE_URL}your-creative-character.png`
+};
+```
+
+### Animation Customization
+
+```javascript
+// Create custom animation sequences
+const animationSequences = {
+  greeting: ['wave', 'idle', 'thumbsup'],
+  working: ['typing', 'thinking', 'coding'],
+  celebration: ['jump', 'dance', 'cheer']
+};
+
+const playSequence = async (sequence) => {
+  for (const animation of sequence) {
+    setCurrentAnimation(animation);
+    await new Promise(resolve => setTimeout(resolve, 2000));
+  }
+};
+```
+
+## Performance Optimization
+
+### Lazy Loading Implementation
+
+```javascript
+import { lazy, Suspense } from 'react';
+
+const LazyPlayer = lazy(() => import('adzyjs').then(module => ({ 
+  default: module.Player 
+})));
+
+function OptimizedCharacter(props) {
+  return (
+    <Suspense fallback={<div className="character-loading">Loading...</div>}>
+      <LazyPlayer {...props} />
+    </Suspense>
+  );
+}
+```
+
+### Image Preloading
+
+```javascript
+const preloadSkins = async (skinUrls) => {
+  const promises = skinUrls.map(url => {
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      img.onload = resolve;
+      img.onerror = reject;
+      img.src = url;
+    });
+  });
+  
+  await Promise.all(promises);
+};
+
+// Use in component
+useEffect(() => {
+  const skins = [
+    'https://example.com/skin1.png',
+    'https://example.com/skin2.png'
+  ];
+  preloadSkins(skins);
+}, []);
+```
+
+Ready to build your own unique portfolio? Start with one of these examples and make it your own! 🚀

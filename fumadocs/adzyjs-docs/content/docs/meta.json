@@ -1,0 +1,25 @@
+{
+  "title": "AdzyJS Documentation",
+  "pages": [
+    "index",
+    "about",
+    "installation",
+    {
+      "title": "Guides",
+      "pages": [
+        "custom-skin-guide",
+        "custom-portfolio-guide"
+      ]
+    },
+    {
+      "title": "Five-Min Portfolio",
+      "pages": [
+        "five-min-portfolio/index",
+        "five-min-portfolio/quick-setup",
+        "five-min-portfolio/customization",
+        "five-min-portfolio/deployment",
+        "five-min-portfolio/examples"
+      ]
+    }
+  ]
+}
