@@ -1,0 +1,186 @@
+---
+title: Installation
+description: Get started with AdzyJS - installation, setup, and basic configuration
+---
+
+# Installation Guide 🚀
+
+## Prerequisites
+
+Before installing AdzyJS, make sure you have:
+
+- **Node.js** 18.0.0 or higher
+- **React** 18.0.0 or higher
+- **Three.js** (will be installed automatically as a dependency)
+
+## 📦 Installation
+
+### Using npm
+```bash
+npm install adzyjs
+```
+
+### Using yarn
+```bash
+yarn add adzyjs
+```
+
+### Using pnpm
+```bash
+pnpm add adzyjs
+```
+
+## 🔧 Basic Setup
+
+### 1. **Install Dependencies**
+
+AdzyJS will automatically install the required dependencies:
+- `three` - 3D rendering engine
+- `@react-three/fiber` - React renderer for Three.js
+- `@react-three/drei` - Useful helpers and abstractions
+
+### 2. **Import the Component**
+
+```jsx
+import { Player } from 'adzyjs';
+```
+
+### 3. **Basic Usage**
+
+```jsx
+import React from 'react';
+import { Player } from 'adzyjs';
+
+function App() {
+  return (
+    <div>
+      <h1>My Minecraft Character</h1>
+      <Player 
+        skinUrl="https://example.com/skin.png"
+        animation="idle"
+      />
+    </div>
+  );
+}
+
+export default App;
+```
+
+## 🎮 Complete Example
+
+Here's a complete working example:
+
+```jsx
+import React, { Suspense } from 'react';
+import { Canvas } from '@react-three/fiber';
+import { Player } from 'adzyjs';
+import { OrbitControls, Environment } from '@react-three/drei';
+
+function MinecraftScene() {
+  return (
+    <Canvas camera={{ position: [0, 1.5, 3], fov: 50 }}>
+      <Suspense fallback={null}>
+        {/* Lighting */}
+        <ambientLight intensity={0.6} />
+        <directionalLight position={[10, 10, 5]} intensity={1} />
+        
+        {/* Environment */}
+        <Environment preset="sunset" />
+        
+        {/* Your Minecraft Player */}
+        <Player 
+          skinUrl="https://example.com/skin.png"
+          animation="idle"
+          position={[0, 0, 0]}
+          scale={1}
+        />
+        
+        {/* Controls */}
+        <OrbitControls 
+          enablePan={true}
+          enableZoom={true}
+          enableRotate={true}
+        />
+      </Suspense>
+    </Canvas>
+  );
+}
+
+export default MinecraftScene;
+```
+
+## ⚙️ Configuration Options
+
+### **Required Props**
+
+| Prop | Type | Description | Example |
+|------|------|-------------|---------|
+| `skinUrl` | string | URL to your Minecraft skin | `"https://example.com/skin.png"` |
+
+### **Optional Props**
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `animation` | string | `"idle"` | Animation to play |
+| `position` | [x, y, z] | `[0, 0, 0]` | 3D position |
+| `scale` | number | `1` | Scale factor |
+| `rotation` | [x, y, z] | `[0, 0, 0]` | Rotation in radians |
+
+## 🔍 Troubleshooting
+
+### **Common Issues**
+
+#### 1. **Skin Not Loading**
+- Check if the skin URL is accessible
+- Ensure the image is a valid Minecraft skin format
+- Verify CORS settings if loading from external domains
+
+#### 2. **Performance Issues**
+- Use `Suspense` for lazy loading
+- Consider reducing model complexity for mobile devices
+- Enable Three.js performance monitoring
+
+#### 3. **Animation Not Working**
+- Verify animation name is correct
+- Check if the model supports the requested animation
+- Ensure proper Three.js setup
+
+### **Debug Mode**
+
+Enable debug mode for development:
+
+```jsx
+<Player 
+  skinUrl="https://example.com/skin.png"
+  debug={true} // Shows helpful console logs
+/>
+```
+
+## 📱 Mobile Considerations
+
+- **Touch Controls**: OrbitControls work with touch gestures
+- **Performance**: Models automatically optimize for mobile devices
+- **Responsive**: Scales appropriately across different screen sizes
+
+## 🎯 Next Steps
+
+Now that you have AdzyJS installed:
+
+1. **Try the examples** above
+2. **Load your own skin** by replacing the skin URL
+3. **Experiment with animations** and positioning
+4. **Check out the [Custom Skin Guide](/docs/custom-skin-guide)** for advanced usage
+5. **Build your [Portfolio](/docs/portfolio-guide)** with AdzyJS
+
+## 🆘 Need Help?
+
+- **GitHub Issues**: Report bugs and request features
+- **Discord Community**: Join our community for support
+- **Documentation**: Explore other sections for advanced usage
+
+---
+
+Ready to create your first Minecraft character? Try the examples above and start building amazing 3D experiences! 🎮✨
+
+
+
