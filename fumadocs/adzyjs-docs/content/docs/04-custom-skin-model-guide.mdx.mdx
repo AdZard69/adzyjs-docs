@@ -3,9 +3,16 @@ title: Custom Skin Model Guide
 description: Learn how to create custom skins, models, and advanced configurations with AdzyJS
 ---
 
-# Custom Skin Model Guide 🎨
 
-## Overview
+
+## This Page assumes a good level knowledge of 
+- Minecraft Design Fundamentals (skin, etc)
+- Modern Web-Development Skills 
+- Javascript
+- Reactjs 
+- Threejs
+- React Three Fiber (R3F) 
+- React Three drei
 
 This guide covers everything you need to know about creating and using custom Minecraft skins with AdzyJS. From basic skin creation to advanced model customization, you'll learn how to bring your unique designs to life.
 
@@ -52,10 +59,9 @@ Minecraft skins are 64x64 pixel PNG images with specific layout requirements:
 ### **Method 1: Using Skin Editors**
 
 #### **Skindex (Online)**
-1. Visit [skindex.com](https://skindex.com)
+1. Visit [skindex.com](https://www.minecraftskins.com/)
 2. Use the online editor to create your skin
 3. Download as PNG format
-4. Upload to your hosting service
 
 #### **Blockbench (Desktop)**
 1. Download [Blockbench](https://blockbench.net/)
@@ -72,29 +78,7 @@ Minecraft skins are 64x64 pixel PNG images with specific layout requirements:
 # Save as PNG with transparency support
 ```
 
-#### **Using Code (Programmatic)**
-```javascript
-// Example: Create a simple skin programmatically
-const canvas = document.createElement('canvas');
-canvas.width = 64;
-canvas.height = 64;
-const ctx = canvas.getContext('2d');
 
-// Draw basic skin structure
-ctx.fillStyle = '#8B5A3C'; // Skin tone
-ctx.fillRect(8, 8, 8, 8);   // Head
-ctx.fillRect(20, 20, 8, 12); // Body
-// ... continue for other parts
-
-// Convert to blob and download
-canvas.toBlob((blob) => {
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = 'my-skin.png';
-  a.click();
-});
-```
 
 ## 🎨 Advanced Skin Features
 
@@ -102,21 +86,8 @@ canvas.toBlob((blob) => {
 ```jsx
 // Skins support transparency for overlays
 <Player 
-  skinUrl="https://example.com/skin-with-overlay.png"
+  skinUrl="/my-custom-skin.png"
   // Transparency will be handled automatically
-/>
-```
-
-### **Custom Animations**
-```jsx
-// Create custom animation sequences
-<Player 
-  skinUrl="https://example.com/skin.png"
-  animation="custom"
-  customAnimations={{
-    wave: { duration: 2000, loop: true },
-    dance: { duration: 3000, loop: true }
-  }}
 />
 ```
 
@@ -137,27 +108,6 @@ const [currentSkin, setCurrentSkin] = useState('default');
 </button>
 ```
 
-## 🔧 Model Customization
-
-### **Custom 3D Models**
-```jsx
-// Use custom GLTF models instead of default Minecraft model
-<Player 
-  skinUrl="https://example.com/skin.png"
-  modelUrl="https://example.com/custom-model.gltf"
-  // AdzyJS will automatically apply your skin to the custom model
-/>
-```
-
-### **Model Scaling and Positioning**
-```jsx
-<Player 
-  skinUrl="https://example.com/skin.png"
-  scale={[1.5, 1.5, 1.5]} // Scale each axis independently
-  position={[0, 1, 0]}     // Position in 3D space
-  rotation={[0, Math.PI, 0]} // Rotate around Y axis
-/>
-```
 
 ### **Multiple Characters**
 ```jsx
@@ -167,13 +117,13 @@ function CharacterScene() {
     <div>
       <Player 
         skinUrl="https://example.com/player1.png"
-        position={[-2, 0, 0]}
-        animation="idle"
+        position={[-2, 0, 0]}  // Feature To be Added soon
+        animation="idle" // Feature To be Added soon
       />
       <Player 
         skinUrl="https://example.com/player2.png"
-        position={[2, 0, 0]}
-        animation="walking"
+        position={[2, 0, 0]} // Feature To be Added soon
+        animation="walking" // Feature To be Added soon
       />
     </div>
   );
@@ -182,19 +132,10 @@ function CharacterScene() {
 
 ## 📱 Responsive Design
 
-### **Mobile Optimization**
-```jsx
-// Automatically adjust for mobile devices
-<Player 
-  skinUrl="https://example.com/skin.png"
-  mobileOptimized={true}
-  // Reduces polygon count and texture resolution on mobile
-/>
-```
 
 ### **Responsive Scaling**
 ```jsx
-// Scale based on screen size
+// Scale based on screen size (if you want such features you have to merge the code with that of my repo because currently I am still wotrking to get these done)
 const [scale, setScale] = useState(1);
 
 useEffect(() => {
@@ -208,8 +149,10 @@ useEffect(() => {
   return () => window.removeEventListener('resize', handleResize);
 }, []);
 
+
+// and this is how you use this feature
 <Player 
-  skinUrl="https://example.com/skin.png"
+  skinUrl="/my-custom-skin.png"
   scale={scale}
 />
 ```
@@ -235,45 +178,6 @@ useEffect(() => {
 3. **Support keyboard navigation** for interactive elements
 4. **Add loading states** for better user experience
 
-## 🔍 Troubleshooting
-
-### **Common Skin Issues**
-
-#### **Skin Not Loading**
-```jsx
-// Check for CORS issues
-<Player 
-  skinUrl="https://example.com/skin.png"
-  onSkinError={(error) => {
-    console.error('Skin loading failed:', error);
-    // Fallback to default skin
-  }}
-/>
-```
-
-#### **Texture Distortion**
-```jsx
-// Ensure proper skin dimensions
-<Player 
-  skinUrl="https://example.com/skin.png"
-  textureSettings={{
-    minFilter: THREE.NearestFilter,
-    magFilter: THREE.NearestFilter
-  }}
-/>
-```
-
-#### **Performance Issues**
-```jsx
-// Enable performance monitoring
-<Player 
-  skinUrl="https://example.com/skin.png"
-  performanceMonitoring={true}
-  onPerformanceWarning={(warning) => {
-    console.warn('Performance issue detected:', warning);
-  }}
-/>
-```
 
 ## 📚 Advanced Examples
 
@@ -303,14 +207,13 @@ function SkinGallery() {
       
       <Player 
         skinUrl={selectedSkin}
-        animation="idle"
       />
     </div>
   );
 }
 ```
 
-### **Skin Animation Controller**
+### **Skin Animation Controller** (feature to be added)
 ```jsx
 function SkinController() {
   const [animation, setAnimation] = useState('idle');

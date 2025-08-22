@@ -1,0 +1,124 @@
+---
+title: Installation
+description: Get started with AdzyJS - installation, setup, and basic configuration
+---
+
+# Complete Installation Guide 
+
+## Prerequisites
+
+Before installing AdzyJS, make sure you have:
+
+- **Node.js** 18.0.0 or higher
+- **React** 18.0.0 or higher
+- **VS code** a code editor where you will code
+
+## 📦 Installation
+
+### Using npm
+```bash
+npm install adzyjs three @react-three/fiber @react-three/drei
+```
+
+### Using yarn
+```bash
+yarn add adzyjs three @react-three/fiber @react-three/drei
+```
+
+### Using pnpm
+```bash
+pnpm add adzyjs three @react-three/fiber @react-three/drei
+```
+
+## 🔧 Basic Setup
+
+### 1. **Install Dependencies**
+
+You might be wondering what are the other packages I have added in the installation:
+- `three` - 3D rendering engine (javascript environment)
+- `@react-three/fiber` - React renderer for Three.js (react environment)
+- `@react-three/drei` - Useful helpers and abstractions (used to make your react 3D development smooth)
+
+### 2. **Import the Component**
+
+```jsx
+import { Player } from 'adzyjs';
+```
+
+### 3. **Basic Usage**
+
+```jsx
+import React from 'react';
+import { Player } from 'adzyjs';
+
+function App() {
+  return (
+    <div>
+      <h1>My Minecraft Character</h1>
+      <Player 
+        skinUrl="/my-custom-skin.png"
+      />
+    </div>
+  );
+}
+
+export default App;
+```
+
+
+
+## ⚙️ Configuration Options
+
+
+### **Props**
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `skinUrl` | string | URL / location to your Minecraft skin in folder | `"https://example.com/skin.png"` |
+| `color1` | string | transparent |Background Gradient Top 
+| `color2` | string | transparent |Background Gradient Bottom 
+| `w` | string | depends on your browser  | decides how much width this Model will cover 
+| `h` | string |depends on your browser | decides how much height this Model will cover 
+
+## 🔍 Troubleshooting
+
+### **Common Issues**
+
+#### 1. **Skin Not Loading**
+- Check if the skin URL is accessible
+- Ensure the image is a valid Minecraft skin format
+- Verify CORS settings if loading from external domains
+
+#### 2. **Performance Issues**
+- Use `Suspense` for lazy loading (requres deep knowledge of R3F because you need to grab my AdzyJS Main code from the Repo or you can check [Custom Skin Guide](/docs/04-custom-skin-model-guide.mdx) )
+- Consider reducing model complexity for mobile devices
+- Enable Three.js performance monitoring
+
+
+##  Mobile Considerations
+ **I do not recommend using these on Mobiles unless you know how to optimize 3Ds or you are lucky enough that it just works fine lol**
+- **Touch Controls**: OrbitControls work with touch gestures
+- **Performance**: Models automatically optimize for mobile devices
+- **Responsive**: Scales appropriately across different screen sizes
+
+## 🎯 Next Steps
+
+Now that you have AdzyJS installed:
+
+1. **Try the examples**
+2. **Load your own skin** by replacing the skin URL
+3. **Check out the [Custom Skin Guide](/docs/custom-skin-guide)** for advanced usage
+4. **Build your [Portfolio](/docs/portfolio-guide)** with AdzyJS
+
+## 🆘 Need Help?
+
+- **GitHub Issues**: Report bugs and request features
+- **Discord Community**: Join our community for support
+- **Documentation**: Explore other sections for advanced usage
+
+---
+
+Ready to create your first Minecraft character? Try the examples and start building amazing 3D experiences! 🎮✨
+
+
+

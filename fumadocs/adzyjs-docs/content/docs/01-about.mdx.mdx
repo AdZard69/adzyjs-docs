@@ -37,17 +37,17 @@ With AdzyJS, you get:
 ### 1. **Dynamic Skin Loading**
 Load any Minecraft skin from a URL with a single prop:
 ```jsx
-<Player skinUrl="https://example.com/skin.png" />
+<Player skinUrl="/my-custom-skin.png" />
 ```
 
 ### 2. **Declarative API**
 No more manual setup - just declare what you want:
 ```jsx
 <Player 
-  skinUrl="https://example.com/skin.png"
-  animation="walking"
-  scale={1.5}
-  position={[0, 0, 0]}
+  skinUrl="/my-custom-skin.png"
+  animation="walking" // feature will be added soon
+  scale={1.5} // feature will be added soon
+  position={[0, 0, 0]} // feature will be added soon
 />
 ```
 
@@ -58,26 +58,29 @@ Materials are automatically configured to preserve the iconic Minecraft aestheti
 - Lighting optimization
 - Performance tuning
 
-### 4. **Built-in Animations**
+### 4. **Built-in Animations** (Under Progress)
 Support for common Minecraft animations:
 - `idle` - Standing still
 - `walking` - Walking animation
 - `running` - Running animation
 - `jumping` - Jump animation
-- Custom animation support
+- Custom animation support (on deemand)
 
 ## 🎯 Use Cases
 
-### **Portfolios**
+- **Minecraft Conetent Websites**
+Make your Minecraft related Webpage standout with 3D models.
+
+- **Portfolios**
 Showcase your Minecraft projects with interactive 3D models that load instantly.
 
-### **Games**
+- **Games**
 Create interactive experiences with dynamic character loading and smooth animations.
 
-### **Experiments**
+- **Experiments**
 Prototype new ideas quickly without worrying about 3D setup complexity.
 
-### **Fan Projects**
+- **Fan Projects**
 Bring your Minecraft creations to life in web applications and interactive experiences.
 
 ## 🔧 Technical Architecture
@@ -86,19 +89,18 @@ AdzyJS is built on top of:
 - **React 18+** for modern component patterns
 - **Three.js** for 3D rendering
 - **React Three Fiber** for React integration
-- **Optimized shaders** for authentic Minecraft visuals
 
-## 🌟 Why Choose AdzyJS?
+## 🌟But Why Choose AdzyJS?
 
-- **🚀 Developer Experience**: Focus on your app, not 3D setup
-- **🎨 Design Quality**: Pixel-perfect Minecraft aesthetics
-- **⚡ Performance**: Optimized rendering and memory management
-- **🔧 Flexibility**: Easy customization and extension
-- **📱 Responsive**: Works across all devices and screen sizes
+- **Developer Experience**: Focus on your app, not 3D setup
+- **Design Quality**: Pixel-perfect Minecraft aesthetics
+- **Performance**: Optimized rendering and memory management
+- **Flexibility**: Easy customization and extension
+- **Responsive**: Works across all devices and screen sizes (still suggested not to use on mobile devices as low-ends might suffer to handle)
 
 ## 🎮 Built for the Community
 
-AdzyJS is built with ❤️ for the R3F (React Three Fiber) community. We believe that 3D web experiences should be accessible to everyone, not just 3D experts.
+AdzyJS is built for the R3F (React Three Fiber) community, and my OG Minecraft community. I believe that 3D web experiences should be accessible to everyone, not just 3D experts.
 
 ---
 
