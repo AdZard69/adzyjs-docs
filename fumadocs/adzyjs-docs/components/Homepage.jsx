@@ -452,7 +452,7 @@ const Homepage = () => {
             <div className="flex items-center justify-center space-x-8">
               {/* GitHub Link */}
               <a
-                href="https://github.com/your-username/adzyjs"
+                href="https://github.com/adzard69/adzyjs"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group relative rounded-xl p-3 bg-gradient-to-r from-zinc-800 via-gray-800 to-neutral-800 shadow-lg transition-all duration-300 hover:shadow-[0_0_20px_rgba(200,200,200,0.2)] hover:scale-105 border border-gray-500/30"
