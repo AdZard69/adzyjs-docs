@@ -1,45 +1,95 @@
-# adzyjs-docs
+# AdzyJS Documentation 🎮
 
-This is a Next.js application generated with
-[Create Fumadocs](https://github.com/fuma-nama/fumadocs).
+Official documentation site for **AdzyJS** - The easiest way to render animated, custom-skinned Minecraft 3D models in React applications.
 
-Run development server:
+## About AdzyJS
+
+AdzyJS is a powerful React component library that abstracts away the complexity of 3D model loading, material creation, and skin integration. Built for developers and designers who want to focus on creativity rather than technical complexity.
+
+### Key Features
+- 🎯 **Single Component API** - Just use `<Player />` and you're done
+- 🎨 **Dynamic Skin Loading** - Load any Minecraft skin from a URL
+- ⚡ **Automatic Material Configuration** - Pixel-perfect Minecraft aesthetics
+- 🔧 **Built-in Optimizations** - Transparency fixes and performance tuning
+- 📱 **Responsive Design** - Works across all devices
+
+## Development
+
+### Prerequisites
+- Node.js 18+ 
+- npm, pnpm, or yarn
+
+### Getting Started
+
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd adzyjs-docs
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   # or
+   pnpm install
+   # or
+   yarn install
+   ```
+
+3. **Start development server**
+   ```bash
+   npm run dev
+   # or
+   pnpm dev
+   # or
+   yarn dev
+   ```
+
+4. **Open your browser**
+   Navigate to [http://localhost:3000](http://localhost:3000)
+
+### Build for Production
 
 ```bash
-npm run dev
-# or
-pnpm dev
-# or
-yarn dev
+npm run build
+npm run start
 ```
 
-Open http://localhost:3000 with your browser to see the result.
+## Project Structure
 
-## Explore
+```
+adzyjs-docs/
+├── app/                    # Next.js app directory
+│   ├── (home)/            # Landing page
+│   ├── docs/              # Documentation pages
+│   └── api/search/        # Search API endpoint
+├── content/docs/          # MDX documentation files
+├── components/            # React components
+├── lib/                   # Utilities and configurations
+├── public/                # Static assets
+└── source.config.ts       # Fumadocs configuration
+```
 
-In the project, you can see:
+## Documentation Content
 
-- `lib/source.ts`: Code for content source adapter, [`loader()`](https://fumadocs.dev/docs/headless/source-api) provides the interface to access your content.
-- `app/layout.config.tsx`: Shared options for layouts, optional but preferred to keep.
+The documentation covers:
+- **About AdzyJS** - Overview and core concepts
+- **Installation** - Setup and integration guide
+- **Custom Skin Model Guide** - Advanced usage patterns
+- **API Reference** - Component props and methods
 
-| Route                     | Description                                            |
-| ------------------------- | ------------------------------------------------------ |
-| `app/(home)`              | The route group for your landing page and other pages. |
-| `app/docs`                | The documentation layout and pages.                    |
-| `app/api/search/route.ts` | The Route Handler for search.                          |
+## Tech Stack
 
-### Fumadocs MDX
+- **Framework**: [Next.js 15](https://nextjs.org/)
+- **Documentation**: [Fumadocs](https://fumadocs.dev/)
+- **Styling**: [Tailwind CSS](https://tailwindcss.com/)
+- **Language**: TypeScript
+- **Content**: MDX
 
-A `source.config.ts` config file has been included, you can customise different options like frontmatter schema.
+## Contributing
 
-Read the [Introduction](https://fumadocs.dev/docs/mdx) for further details.
+Contributions are welcome! Please feel free to submit issues and pull requests.
 
-## Learn More
+## License
 
-To learn more about Next.js and Fumadocs, take a look at the following
-resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js
-  features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-- [Fumadocs](https://fumadocs.vercel.app) - learn about Fumadocs
+This documentation is part of the AdzyJS project.
